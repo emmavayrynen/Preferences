@@ -86,22 +86,27 @@ CompletePreference<- read.csv("~/Dota/Preferences/Predicted preference.csv")
 #Fråga om hur detta ligger till
 postResample(PredictNewdata,testingC5$brand)
 
-##Graphs
+##### Graphs for report #####
 
-# Complete data
+## Graphs of complete data ##
+
+#Relation between salary, age and brand
 ggplot(CompleteResponses, aes(x=age, y=salary, col=brand)) + geom_point()+ theme_light()
 
+#Brand preference
 ggplot(CompleteResponses, aes(x=brand, fill=brand)) + geom_bar()+theme_gray()+ labs(title = "Brand preferences")
-
-#New data
-Withoutbrand$predicted <- PredictNewdata
-#Withoutbrand$predicted <- as.factor(Withoutbrand$predicted),
-                                  levels = c(0,1)#, labels = c("Acer","Sony"))
-
-ggplot(Withoutbrand, aes(x=age, y=salary, col=predicted)) + geom_point()+ theme_light()
-
-ggplot(Withoutbrand, aes(x=predicted, fill=predicted)) + geom_bar()+theme_gray()+ labs(title = "Predicted brand preferences")
-```
 
 #Salary
 ggplot(CompleteResponses, aes(x=salary)) + geom_histogram(color="black", fill="yellow", bins=25)+ labs(title= "Distribution of salary")
+
+## Graphs of new data ##
+Withoutbrand$predicted <- PredictNewdata
+Withoutbrand$predicted <- as.factor(Withoutbrand$predicted)
+                                  levels = c(0,1), labels = c("Acer","Sony"))
+
+#Relation between salary, age and brand
+ggplot(Withoutbrand, aes(x=age, y=salary, col=predicted)) + geom_point()+ theme_light()
+
+#Brand preference
+ggplot(Withoutbrand, aes(x=predicted, fill=predicted)) + geom_bar()+theme_gray()+ labs(title = "Predicted brand preferences")
+
